@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pix | Clínica Oral Sorriso</title>
+<style>
+:root { --red:#C92332; --pale:#FFF0F1; --dark:#65121B; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:Arial, sans-serif; color:#252525; background:#fff; }
+.topbar { background:var(--red); color:#fff; padding:24px 20px; text-align:center; }
+.logo { width:46px;height:46px;margin:0 auto 10px;border:2px solid #fff;border-radius:50%;display:grid;place-items:center;font-size:23px;font-weight:800; }
+h1 { font-size:26px; margin:0; }
+.topbar p { margin:8px 0 0; font-size:14px; }
+main { max-width:520px; margin:0 auto; padding:28px 20px 36px; }
+.intro { text-align:center; margin-bottom:24px; }
+.pix-icon { width:54px;height:54px;border-radius:18px;background:var(--pale);color:var(--red);display:grid;place-items:center;margin:0 auto 14px;font-size:27px;font-weight:800; }
+h2 { font-size:21px;margin:0 0 8px; }
+.intro p { color:#666; margin:0; line-height:1.5; font-size:15px; }
+.card { border:1px solid #e8e8e8;border-radius:18px;padding:22px;background:#fff;box-shadow:0 8px 26px rgba(0,0,0,.06); }
+.label { display:block;font-size:13px;color:#666;margin-bottom:9px;font-weight:650; }
+.key { width:100%;padding:14px 12px;border:1px solid #d9d9d9;border-radius:10px;font-size:16px;color:#222;background:#fafafa; }
+.help { font-size:12px;line-height:1.45;color:#777;margin:9px 0 18px; }
+button { font:inherit;cursor:pointer;border:0;border-radius:11px;width:100%;min-height:50px;padding:14px 16px;background:var(--red);color:#fff;font-weight:750;font-size:15px; }
+.status { min-height:22px;font-size:13px;margin-top:11px;text-align:center;color:#276749; }
+.steps { margin-top:22px;padding:16px;border-radius:14px;background:var(--pale);color:var(--dark);font-size:13px;line-height:1.55; }
+.steps strong { display:block;margin-bottom:5px; }
+footer { text-align:center;padding:8px 20px 28px;color:#777;font-size:12px; }
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo" aria-hidden="true">OS</div>
+  <h1>Clínica Oral Sorriso</h1>
+  <p>Uberlândia · MG</p>
+</header>
+<main>
+  <section class="intro">
+    <div class="pix-icon" aria-hidden="true">✦</div>
+    <h2>Pagamento via Pix</h2>
+    <p>Copie a chave Pix abaixo e cole no aplicativo do seu banco para realizar o pagamento.</p>
+  </section>
+  <section class="card" aria-label="Chave Pix da clínica">
+    <label class="label" for="pixkey">Chave Pix (CNPJ)</label>
+    <input class="key" id="pixkey" type="text" inputmode="numeric" autocomplete="off" value="63404277000108" readonly>
+    <p class="help">Chave Pix CNPJ informada pela clínica. Confira o nome do favorecido no aplicativo do banco antes de confirmar o pagamento.</p>
+    <button id="copybtn" type="button">Copiar chave Pix</button>
+    <div class="status" id="status" role="status" aria-live="polite"></div>
+  </section>
+  <div class="steps"><strong>Como pagar</strong>1. Toque em “Copiar chave Pix”.<br>2. Abra o aplicativo do seu banco e entre em Pix.<br>3. Escolha “Pix Copia e Cola” ou “Pagar com chave Pix” e confira o favorecido antes de confirmar.</div>
+</main>
+<footer>Em caso de dúvida, peça ajuda à nossa equipe da recepção.</footer>
+<script>
+const keyInput = document.getElementById('pixkey');
+const status = document.getElementById('status');
+document.getElementById('copybtn').addEventListener('click', async () => {
+  const key = keyInput.value.trim();
+  try {
+    await navigator.clipboard.writeText(key);
+    status.textContent = 'Chave Pix copiada. Abra o aplicativo do seu banco.';
+    status.style.color = '#276749';
+  } catch (e) {
+    keyInput.select();
+    status.textContent = 'Selecione e copie a chave manualmente.';
+    status.style.color = '#B42332';
+  }
+});
+</script>
+</body>
+</html>
